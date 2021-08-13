@@ -5,3 +5,5 @@ config.json
 # Visual Studio Code debris
 .vscode
 *.code-workspace
+# Idea IDE
+.idea

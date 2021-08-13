@@ -19,6 +19,8 @@ A Discord bot for the TPT2 community.
 git clone https://github.com/Fire-Sword-Studios/DrCubical.git
 cd DrCubical
 npm install
+cp .env.example .env 
+edit .env
 ```
 
 ## License

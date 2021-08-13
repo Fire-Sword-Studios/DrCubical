@@ -1,7 +1,7 @@
 {
-  "name": "nodebot",
+  "name": "dr-cubical",
   "version": "0.0.1",
-  "description": "Test",
+  "description": "A TPT2 community bot",
   "main": "bot.js",
   "scripts": {
     "lint": "eslint",
