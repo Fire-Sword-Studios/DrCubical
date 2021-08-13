@@ -1,0 +1,7 @@
+node_modules
+config.json
+.env
+
+# Visual Studio Code debris
+.vscode
+*.code-workspace
