@@ -57,6 +57,6 @@ client.on('messageCreate', (msg) => {
 
 // Run the bot
 {
-	let loginPromise = client.login(process.env.TOKEN);
+	const loginPromise = client.login(process.env.TOKEN);
 	loginPromise.catch((error) => { console.error("Bot failed to login : \n", error) });
 }
