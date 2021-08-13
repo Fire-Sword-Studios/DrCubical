@@ -48,7 +48,7 @@ client.on('interactionCreate', async (interaction) => {
   if (!interaction.isButton()) return;
 });
 
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
   /*
    Nothing should really be here, all commands are expected
    to be application commands (aka interactions)
@@ -56,4 +56,7 @@ client.on('message', (msg) => {
 });
 
 // Run the bot
-client.login(process.env.TOKEN);
+{
+	let loginPromise = client.login(process.env.TOKEN);
+	loginPromise.catch((error) => { console.error("Bot failed to login : \n", error) });
+}
