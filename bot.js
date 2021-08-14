@@ -34,6 +34,8 @@ for (const file of eventFiles) {
 
 // Run the bot
 {
-	const loginPromise = client.login(process.env.TOKEN);
-	loginPromise.catch((error) => { console.error("Bot failed to login : \n", error) });
+  const loginPromise = client.login(process.env.TOKEN);
+  loginPromise.catch((error) => {
+    console.error('Bot failed to login : \n', error);
+  });
 }
