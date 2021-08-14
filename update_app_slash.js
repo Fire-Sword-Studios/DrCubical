@@ -11,14 +11,10 @@ dotenv.config();
  * @return {int} the mapped value for permission overwrite type
  */
 function resolveType(type) {
-  if (type === 1 || type === 2) {
-    return type;
-  }
-
   switch (type) {
-    case 'ROLE':
+    case 1: case 'ROLE':
       return 1;
-    case 'USER':
+    case 2: case 'USER':
       return 2;
     default:
       throw new Error('Unknown permission overwrite type');
@@ -45,7 +41,8 @@ for (const file of commandFiles) {
   // Check for permission overwrites
   if (command.permissions && command.permissions.length > 0) {
     const permissions = command.permissions;
-    permissions.map((permission) => permission = resolveType(permission));
+    permissions.map((permission) =>
+      permission.type = resolveType(permission.type));
     permissionsOverwrites[data.name] = permissions;
   }
 }
