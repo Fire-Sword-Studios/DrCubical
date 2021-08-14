@@ -2,7 +2,7 @@
   "name": "dr-cubical",
   "version": "0.0.1",
   "description": "A TPT2 community bot",
-  "main": "bot.js",
+  "main": "core/bot.js",
   "scripts": {
     "start": "node core/bot.js",
     "lint": "eslint",
