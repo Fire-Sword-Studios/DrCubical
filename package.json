@@ -4,8 +4,9 @@
   "description": "A TPT2 community bot",
   "main": "bot.js",
   "scripts": {
+    "start": "node core/bot.js",
     "lint": "eslint",
-    "update_slash": "node update_app_slash.js",
+    "update_slash": "node core/update_app_slash.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
