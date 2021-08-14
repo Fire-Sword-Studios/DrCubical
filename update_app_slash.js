@@ -5,6 +5,27 @@ const {Routes} = require('discord-api-types/v9');
 
 dotenv.config();
 
+/**
+ * Maps a permission.type value to the corresponding int value
+ * @param {str | int} type permission overwrite type
+ * @return {int} the mapped value for permission overwrite type
+ */
+function resolveType(type) {
+  if (type === 1 || type === 2) {
+    return type;
+  }
+
+  switch (type) {
+    case 'ROLE':
+      return 1;
+    case 'USER':
+      return 2;
+    default:
+      throw new Error('Unknown permission overwrite type');
+  }
+}
+
+
 // Fetch commands from ./commands folder
 const commands = [];
 const permissionsOverwrites = {};
@@ -23,15 +44,8 @@ for (const file of commandFiles) {
 
   // Check for permission overwrites
   if (command.permissions && command.permissions.length > 0) {
-    // Convert str type into int: ROLE(1) USER(2)
     const permissions = command.permissions;
-    for (let i = 0; i < permissions.length; i++) {
-      if (permissions[i].type === 'ROLE') {
-        permissions[i].type = 1;
-      } else if (permissions[i].type === 'USER') {
-        permissions[i].type = 2;
-      }
-    }
+    permissions.map((permission) => permission = resolveType(permission));
     permissionsOverwrites[data.name] = permissions;
   }
 }
