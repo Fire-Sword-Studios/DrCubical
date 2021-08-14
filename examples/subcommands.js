@@ -1,4 +1,5 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const {SlashCommandBuilder, userMention,
+  channelMention} = require('@discordjs/builders');
 
 // Example of a command using subcommands
 module.exports = {
@@ -41,6 +42,27 @@ If omitted, the guild permissions will be returned`)
   // To add subcommands without groups, you can just use .addSubCommand()
 
   async execute(interaction) {
+    // to get which subcommand / subcommand group, use respectively
+    // getSubcommand() and getSubcommandGroup()
+    const group = interaction.options.getSubcommandGroup();
+    const subcommand = interaction.options.getSubcommand();
+    if (group === 'user') {
+      if (subcommand === 'get') {
+        const user = interaction.options.getUser('user');
+        // channel is optionnal, getChannel will either return a channel or null
+        const channel = interaction.options.getChannel('channel');
+        await interaction.reply(`[get user permissions for 
+${userMention(user.id)} ${channel?channelMention(channel.id):''}]`);
+      } else if (subcommand === 'edit') {
+        await interaction.reply(`[edit user permissions]`);
+      }
+    } else if (group === 'role') {
+      if (subcommand === 'get') {
+        await interaction.reply(`[get role permissions`);
+      } else if (subcommand === 'edit') {
+        await interaction.reply(`[edit role permissions]`);
+      }
+    }
     await interaction.reply('Imagine you can manage permissions');
   },
 };
