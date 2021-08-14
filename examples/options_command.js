@@ -25,6 +25,9 @@ module.exports = {
         */
 
   async execute(interaction) {
-    await interaction.reply('Imagine a gif');
+    // Each option can be retrieved using the corresponding get function
+    // More at https://discordjs.guide/interactions/replying-to-slash-commands.html#command-options
+    const userChoice = interaction.options.getString('animal');
+    await interaction.reply(`Imagine a gif about ${userChoice}`);
   },
 };
