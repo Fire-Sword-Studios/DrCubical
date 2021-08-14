@@ -20,40 +20,17 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  console.log(`<@${client.user.id}>`);
-});
-
-// Dynamically executing commands
-// Code found at https://discordjs.guide/command-handling/#reading-command-files
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isCommand()) return;
-
-  if (!client.commands.has(interaction.commandName)) return;
-
-  try {
-    await client.commands.get(interaction.commandName).execute(interaction);
-  } catch (error) {
-    console.error(error);
-    await interaction.reply({
-      content: 'There was an error while executing this command!',
-      ephemeral: true,
-    });
+// Automatic loading of commands in ./events folder
+const eventFiles = fs.readdirSync('./events')
+    .filter((file) => file.endsWith('.js'));
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args, client));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args, client));
   }
-});
-
-// Handler for buttons (see https://discordjs.guide/interactions/buttons.html#receiving-buttons)
-client.on('interactionCreate', async (interaction) => {
-  if (!interaction.isButton()) return;
-});
-
-client.on('message', (msg) => {
-  /*
-   Nothing should really be here, all commands are expected
-   to be application commands (aka interactions)
-   */
-});
+}
 
 // Run the bot
 client.login(process.env.TOKEN);
