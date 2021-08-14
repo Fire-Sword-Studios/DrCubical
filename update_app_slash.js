@@ -1,7 +1,9 @@
+const dotenv = require('dotenv');
 const fs = require('fs');
 const {REST} = require('@discordjs/rest');
 const {Routes} = require('discord-api-types/v9');
 
+dotenv.config();
 
 // Fetch commands from ./commands folder
 const commands = [];
@@ -15,6 +17,7 @@ for (const file of commandFiles) {
 
 // Make the requests to update app commands
 const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
+
 (async () => {
   try {
     console.log('Started refreshing application (/) commands.');
