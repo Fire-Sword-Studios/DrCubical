@@ -16,7 +16,8 @@ module.exports = {
         .setColor('#0099ff')
         .setTitle(`Suggestion ${suggestionNumber}`)
         .setDescription(interaction.options.getString('suggestion'))
-        .setAuthor(interaction.user.username, interaction.user.avatarURL());
+        .setAuthor(interaction.user.tag, interaction.user.avatarURL())
+        .setFooter(`Votes: 12⬆️ : 3⬇️`);
     const row = new MessageActionRow()
         .addComponents(
             new MessageButton()
