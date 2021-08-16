@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const fs = require('fs');
 
 dotenv.config();
+require('./database.js'); // To initialize the databse connection
 
 const client = new Client({
   // TODO: check intents required
@@ -56,7 +57,6 @@ client.on('messageCreate', (msg) => {
 });
 
 // Run the bot
-{
-	const loginPromise = client.login(process.env.TOKEN);
-	loginPromise.catch((error) => { console.error("Bot failed to login : \n", error) });
-}
+client.login(process.env.TOKEN).catch((error) => {
+  console.error("Bot failed to login : \n", error)
+});
