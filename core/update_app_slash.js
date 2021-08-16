@@ -12,7 +12,8 @@ const commandFiles = fs.readdirSync('./commands')
     .filter((file) => file.endsWith('.js'));
 
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
+  // TODO: get the absolute path of the file and require using that path
+  const command = require(`../commands/${file}`);
   commands.push(command.data.toJSON());
 }
 
