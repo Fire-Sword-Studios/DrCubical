@@ -29,10 +29,10 @@ the difficulty and multiplied by a factor based on your wave progress.
 The current difficulty factor for each difficulty is:
 - Easy x1
 - Medium x1.5
-- Hard x1.5
-- Insane x2
-- Nightmare x2.25
-- Impossible x2.5
+- ||Hard x1.5||
+- ||Insane x2||
+- ||Nightmare x2.25||
+- ||Impossible x2.5||
 
 and the formula for the wave bonus is \`Log10(currentWave / 10)\`
 
