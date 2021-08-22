@@ -56,7 +56,7 @@ module.exports = {
 
     // Create the gif
     for (let i=0; i<5; i++) {
-      const tmp = new Jimp(112, 112, 0x0, (err, image) =>{});
+      const tmp = new Jimp(112, 112, '#36393f', (err, image) =>{});
       const crunchedAvatar = avatar.clone()
           .resize(AVATAR_CRUNCH_SIZES[i][0], AVATAR_CRUNCH_SIZES[i][1]);
       tmp.blit(crunchedAvatar, 0, 112-AVATAR_CRUNCH_SIZES[i][1]);
