@@ -4,17 +4,17 @@ const fetch = require('node-fetch');
 const Jimp = require('jimp');
 const {BitmapImage, GifFrame, GifUtil} = require('gifwrap');
 const sharp = require('sharp');
+sharp.cache(false);
 
 /**
  * download a file from an url
  * @param {str} url Url to download from
  * @param {str} path Path to save the image
- * @param {function} callback Function to execute once download is complete
  */
-async function download(url, path, callback) {
+async function download(url, path) {
   const response = await fetch(url);
   const buffer = await response.buffer();
-  fs.writeFile(path, buffer, callback);
+  fs.writeFileSync(path, buffer);
 }
 
 module.exports = {
@@ -35,9 +35,7 @@ module.exports = {
     const fileExtention = avatarURL.split('.').pop();
     const filename = `./tmp/${target.username}.${fileExtention}`;
     const filenamePNG = `./tmp/${target.username}.png`;
-    await download(avatarURL, filename, () => {
-      console.log('wrote');
-    });
+    await download(avatarURL, filename);
 
     // Convert the image to png, Jimp can't handle WebP
     await sharp(filename)
@@ -77,8 +75,7 @@ module.exports = {
       content: `<@${target.id}> got pats`,
       files: [outputPath],
     });
-    const wait = require('util').promisify(setTimeout);
-    await wait(60000);
+
     // Clean files
     fs.unlinkSync(outputPath);
     fs.unlinkSync(filenamePNG);
