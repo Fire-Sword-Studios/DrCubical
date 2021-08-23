@@ -27,11 +27,23 @@ module.exports = {
             .setRequired(true)),
   async execute(interaction) {
     // Ack the interaction
-    interaction.deferReply();
+    await interaction.deferReply();
+
+    const target = interaction.options.getUser('target');
+    if (target.id === interaction.user.id) {
+      await interaction.editReply({content: 'You can\'t pat yourself!'});
+      return;
+    }
 
     // Download and save the image
-    const target = interaction.options.getUser('target');
     const avatarURL = target.avatarURL();
+    // User has a default avatar
+    if (avatarURL === null) {
+      await interaction.editReply({
+        content: 'You can\'t pat someone without an avatar :\'(',
+      });
+      return;
+    }
     const fileExtention = avatarURL.split('.').pop();
     const filename = `./tmp/${target.username}.${fileExtention}`;
     const filenamePNG = `./tmp/${target.username}.png`;
