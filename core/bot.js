@@ -37,10 +37,17 @@ client.on('interactionCreate', async (interaction) => {
     await client.commands.get(interaction.commandName).execute(interaction);
   } catch (error) {
     console.error(error);
-    await interaction.reply({
-      content: 'There was an error while executing this command!',
-      ephemeral: true,
-    });
+    if (interaction.deferred) {
+      await interaction.editReply({
+        content: 'There was an error while executing this command!',
+        ephemeral: true,
+      });
+    } else {
+      await interaction.reply({
+        content: 'There was an error while executing this command!',
+        ephemeral: true,
+      });
+    }
   }
 });
 
@@ -58,6 +65,8 @@ client.on('messageCreate', (msg) => {
 
 // Run the bot
 {
-	const loginPromise = client.login(process.env.TOKEN);
-	loginPromise.catch((error) => { console.error("Bot failed to login : \n", error) });
+  const loginPromise = client.login(process.env.TOKEN);
+  loginPromise.catch((error) => {
+    console.error('Bot failed to login : \n', error);
+  });
 }
