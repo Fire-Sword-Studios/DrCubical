@@ -73,13 +73,3 @@ Youtube: [Fire Sword Studios](https://www.youtube.com/channel/UCDV-wwiAAic-OESAa
       ephemeral: false});
   },
 };
-
-// https://discord.gg/fireswordstudios
-// https://games.fs-studios.com/games/perfecttower2
-/*
-Reddit - http://bit.ly/2Rh8TJ0
-Facebook - http://bit.ly/2CZ7YV1
-Twitter - http://bit.ly/2Qzqsir
-Twitch - http://bit.ly/2tArP7a
-Youtube - http://bit.ly/2FhfFbs
-*/
