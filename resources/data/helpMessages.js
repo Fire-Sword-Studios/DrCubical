@@ -18,11 +18,12 @@ Log file names:
         .setTitle('Save location and backup')
         .setDescription(`%userprofile%\\appdata\\locallow\\Fire Sword Studios\
 \\The Perfect Tower II\\saves
-Each slot is corresponds one of your saves. To backup a save, \
-copy the folowing files in a safe location:
+Each slot corresponds to one of your saves. To create a backup of a save, \
+copy the files that end with:
   \`.sav\`
   \`.timestamp.sav\` 
-  \`.bak.sav\`  
+  \`.bak.sav\`
+to a safe location (any other folder works).
 You can later restore your save by copying the saved file in this folder.`),
   },
   file_write_error: {
