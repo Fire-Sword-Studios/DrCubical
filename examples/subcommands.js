@@ -8,7 +8,7 @@ module.exports = {
       .setDescription('Get or edit permissions for a user or a role')
       // Using subcommands or subcommand groups will make
       // your base command unusable.
-      // A command can have EITHER subcommands or groups, not both
+      // Even if it's not documented in the API, a command can mix both subcommands and groups
       // Subcommand groups can only have subcommands, not groups
       // If you need more details, feel free to check the documentation
       // https://discord.com/developers/docs/interactions/application-commands#subcommands-and-subcommand-groups
@@ -42,27 +42,45 @@ If omitted, the guild permissions will be returned`)
   // To add subcommands without groups, you can just use .addSubCommand()
 
   async execute(interaction) {
-    // to get which subcommand / subcommand group, use respectively
-    // getSubcommand() and getSubcommandGroup()
     const group = interaction.options.getSubcommandGroup();
     const subcommand = interaction.options.getSubcommand();
-    if (group === 'user') {
-      if (subcommand === 'get') {
-        const user = interaction.options.getUser('user');
-        // channel is optionnal, getChannel will either return a channel or null
-        const channel = interaction.options.getChannel('channel');
-        await interaction.reply(`[get user permissions for 
-${userMention(user.id)} ${channel?channelMention(channel.id):''}]`);
-      } else if (subcommand === 'edit') {
-        await interaction.reply(`[edit user permissions]`);
-      }
-    } else if (group === 'role') {
-      if (subcommand === 'get') {
-        await interaction.reply(`[get role permissions`);
-      } else if (subcommand === 'edit') {
-        await interaction.reply(`[edit role permissions]`);
-      }
-    }
-    await interaction.reply('Imagine you can manage permissions');
+
+    // This code redirects to the correct subcommand, whether you are
+    // using subcommand groups, using subcommands directly
+    // or mixing both in the same command
+    await (group == null ? subcommandgroups[group] :
+      subcommands)[subcommand](interaction);
   },
 };
+
+// Put your subcommand groups code in there
+const subcommandgroups = {
+
+  user: {
+    get: async (interaction) => {
+      const user = interaction.options.getUser('user');
+      // channel is optionnal, getChannel will either return a channel or null
+      const channel = interaction.options.getChannel('channel');
+      await interaction.reply(`[get user permissions for 
+${userMention(user.id)} ${channel?channelMention(channel.id):''}]`);
+    },
+
+    edit: async (interaction) => {
+      await interaction.reply(`[edit user permissions]`);
+    }
+  },
+
+  role: {
+    get: async (interaction) => {
+      await interaction.reply(`[get role permissions`);
+    },
+
+    edit: async (interaction) => {
+      await interaction.reply(`[edit role permissions]`);
+    }
+  }
+}
+
+// Put them in there if you use direct subcommands
+const subcommands = {
+}
